@@ -3,6 +3,7 @@
 import javafx.animation.AnimationTimer;
 import  javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -12,9 +13,9 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Game extends Application {
+public class Game  {
     public static ArrayList<Block> platforms = new ArrayList<>();    
-    private HashMap<KeyCode,Boolean> keys = new HashMap<>();
+   // private HashMap<KeyCode,Boolean> keys = new HashMap<>();
 
     Image backgroundImg = new Image(getClass().getResourceAsStream("background.png"));
     public static final int BLOCK_SIZE = 45;
@@ -23,11 +24,11 @@ public class Game extends Application {
     public static Pane appRoot = new Pane();
     public static Pane gameRoot = new Pane();
 
-    public Character player;
+   // public Character player;
     int levelNumber = 0;
-    private int levelWidth;
+    static int levelWidth;
 
-    private void initContent(){
+    void initContent(){
         ImageView backgroundIV = new ImageView(backgroundImg);
         backgroundIV.setFitHeight(14*BLOCK_SIZE);
         backgroundIV.setFitWidth(212*BLOCK_SIZE);
@@ -85,63 +86,27 @@ public class Game extends Application {
             }
 
         }
-        player =new Character();
-        player.setTranslateX(0);
-        player.setTranslateY(400);
-        player.translateXProperty().addListener((obs,old,newValue)->{
+        Movement.player =new Character();
+        Movement.player.setTranslateX(100);
+        Movement.player.setTranslateY(400);
+        Movement.player.translateXProperty().addListener((obs,old,newValue)->{
             int offset = newValue.intValue();
             if(offset>640 && offset<levelWidth-640){
                 gameRoot.setLayoutX(-(offset-640));
                 backgroundIV.setLayoutX(-(offset-640));
             }
         });
-        gameRoot.getChildren().add(player);
-        appRoot.getChildren().addAll(backgroundIV,gameRoot);
+        
+        Button back=new Button("BACK");
+        
+        back.setOnAction(e->{
+        	Main.ps.setScene(Main.sn);
+        	Main.ps.show() ;
+        });
+        
+        gameRoot.getChildren().add(Movement.player);
+        appRoot.getChildren().addAll(backgroundIV,gameRoot,back);
     }
 
-    private void update(){
-        if(isPressed(KeyCode.UP) && player.getTranslateY()>=5){
-            player.jumpPlayer();
-        }
-        if(isPressed(KeyCode.LEFT) && player.getTranslateX()>=5){
-            player.setScaleX(-1);
-         //   player.animation.play();
-            player.moveX(-5);
-        }
-        if(isPressed(KeyCode.RIGHT) && player.getTranslateX()+40 <=levelWidth-5){
-            player.setScaleX(1);
-         //  player.animation.play();
-            player.moveX(5);
-        }
-        if(player.playerVelocity.getY()<10){                         
-           player.playerVelocity = player.playerVelocity.add(0,1);
-        }
-        player.moveY((int)player.playerVelocity.getY());
-    }
-    private boolean isPressed(KeyCode key){
-        return keys.getOrDefault(key,false);
-    }
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        initContent();
-        Scene scene = new Scene(appRoot,1200,620);
-        scene.setOnKeyPressed(event-> keys.put(event.getCode(), true));
-        scene.setOnKeyReleased(event -> {
-            keys.put(event.getCode(), false);
-           //  player.animation.stop();
-        });
-        primaryStage.setTitle("Hill Climb");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                update();
-            }
-        };
-        timer.start();
-    }
-    public static void main(String[] args) {
-        launch(args);
-    }
+
 }

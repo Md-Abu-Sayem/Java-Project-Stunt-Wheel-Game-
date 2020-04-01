@@ -15,6 +15,7 @@ import javafx.util.Duration;
 
 
 public class Character extends Pane{
+	public static double score=0.0;
     Image carImg = new Image(getClass().getResourceAsStream("car4.png"));
     ImageView imageView = new ImageView(carImg);
   //  int count = 3;
@@ -36,10 +37,11 @@ public class Character extends Pane{
     }
 
     public void moveX(int value){
+    	score+=0.2;
         boolean movingRight = value > 0;
         for(int i = 0; i<Math.abs(value); i++) {
             for (Node platform : Game.platforms) {
-                if(this.getBoundsInParent().intersects(platform.getBoundsInParent())) { //if mario touches one of the blocks from left or right side
+                if(this.getBoundsInParent().intersects(platform.getBoundsInParent())) { //if car touches one of the blocks from left or right side
                     if (movingRight) {
                         if (this.getTranslateX() + Game.CAR_SIZE == platform.getTranslateX()){ 
                             this.setTranslateX(this.getTranslateX() - 1);           // moving it little back.at last we will move it same amount front
@@ -71,7 +73,7 @@ public class Character extends Pane{
                     }
                     else{   //movingUp
                         if(this.getTranslateY() == platform.getTranslateY()+ Game.BLOCK_SIZE){
-                            this.setTranslateY(this.getTranslateY()+1);   //push the player down
+                            this.setTranslateY(this.getTranslateY()+1);   //push the car down
                             playerVelocity = new Point2D(0,10); 
                             return;
                         }
