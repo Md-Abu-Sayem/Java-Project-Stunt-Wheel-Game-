@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 
 import javafx.geometry.Point2D;
@@ -16,7 +11,7 @@ import javafx.util.Duration;
 
 public class Character extends Pane{
 	public static double score=0.0;
-    Image carImg = new Image(getClass().getResourceAsStream("car4.png"));
+    Image carImg = new Image(getClass().getResourceAsStream("bmw.png"));
     ImageView imageView = new ImageView(carImg);
   //  int count = 3;
   //  int columns = 3;
@@ -83,7 +78,7 @@ public class Character extends Pane{
             this.setTranslateY(this.getTranslateY() + (movingDown?1:-1));
             if(this.getTranslateY()>640 || this.getTranslateX()>9400){
                 this.setTranslateX(0);
-                this.setTranslateY(500);    //if player dies it will start from beggining
+                this.setTranslateY(350);    //if player dies it will start from beggining
                 Game.gameRoot.setLayoutX(0);
               //  Game.gameRoot.setLayoutY(500);
             }

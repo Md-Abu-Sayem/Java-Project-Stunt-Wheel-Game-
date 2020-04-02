@@ -17,7 +17,7 @@ public class Game  {
     public static ArrayList<Block> platforms = new ArrayList<>();    
    // private HashMap<KeyCode,Boolean> keys = new HashMap<>();
 
-    Image backgroundImg = new Image(getClass().getResourceAsStream("background.png"));
+    Image backgroundImg = new Image(getClass().getResourceAsStream("background1.png"));
     public static final int BLOCK_SIZE = 45;
     public static final int CAR_SIZE = 80;
 

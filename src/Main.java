@@ -22,7 +22,7 @@ public class Main extends Application{
 			
 //			par=root;
 				
-			sn= new Scene(root,700,500);
+			sn= new Scene(root,700,600);
 //			primaryStage.setTitle("Welcome");
 			primaryStage.setScene(sn);
 			ps=primaryStage;

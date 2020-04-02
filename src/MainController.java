@@ -19,7 +19,7 @@ public class MainController {
 		System.out.println("Game Started");
 		field.initContent();
 		Stage primaryStage = (Stage) ( ((Node) event.getSource()).getScene().getWindow() );
-        Scene scene = new Scene(field.appRoot,1200,700);
+        Scene scene = new Scene(field.appRoot,1200,640);
         scene.setOnKeyPressed(e-> Movement.keys.put( e.getCode(), true));
         
         
